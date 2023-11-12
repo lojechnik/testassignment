@@ -1,7 +1,7 @@
 import { RootState } from '../redux/store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from "react-redux";
-import { logout} from "../redux/authslice";
+import { logout } from "../redux/authslice";
 
 interface IRequestOptions {
     method: string,
@@ -27,10 +27,10 @@ interface IHeaders {
 
 export default function useFetch() {
     const dispatch = useDispatch()
-    const token = useSelector((state:RootState) => state.auth.token)
+    const token = useSelector((state: RootState) => state.auth.token)
 
     const send = (url: string, method: string, body?: IBody) => {
-    
+
         const base = 'https://test-assignment.emphasoft.com/api/v1/'
         const normalizedURL = `${base}${url}`
 

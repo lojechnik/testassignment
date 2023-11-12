@@ -25,7 +25,7 @@ function HomePage() {
             Логин
             <input ref={loginInputRef} /> <br />
             Пароль
-            <input  ref={passwordInputRef}/>
+            <input ref={passwordInputRef} />
             <div onClick={auth}>Авторизация</div>
             {token}
         </>

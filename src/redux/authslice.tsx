@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 type stateType = {
-  loggedIn:boolean;
-  currentUser:string;
-  token:string,
+  loggedIn: boolean;
+  currentUser: string;
+  token: string,
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-   loggedIn: false,
-   currentUser: '',
-   token: localStorage.getItem('token'),
+    loggedIn: false,
+    currentUser: '',
+    token: localStorage.getItem('token'),
   } as stateType,
   reducers: {
     login: (state, { payload }) => {
