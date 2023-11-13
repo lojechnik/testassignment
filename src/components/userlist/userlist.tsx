@@ -29,16 +29,18 @@ function UserList() {
   const filter = () => { setResultingArray(filterArray(users, filterRef?.current?.value)) }
   const sortAsc = () => {
     setResultingArray(
-      users.sort((a, b) => {
+      users.slice().sort((a, b) => {
         return a.id - b.id
       }));
+      console.log('results123',resultingArray)
 
   }
   const sortDesc = () => {
-    setResultingArray(users.sort((a, b) => {
+
+    setResultingArray(users.slice().sort((a, b) => {
       return b.id - a.id
     }));
-
+console.log('result',resultingArray)
   }
   const filterRef = useRef<HTMLInputElement>(null)
   const filterArray = (userArray: userType[], name?: string) => {
