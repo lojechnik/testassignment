@@ -18,11 +18,14 @@ export const authSlice = createSlice({
       state.token = payload.token
       state.loggedIn = true
       localStorage.setItem('token', payload.token)
+
     },
     logout: (state) => {
       state.loggedIn = false
       state.currentUser = ''
       localStorage.removeItem('token')
+      console.log('state.loggedon',state.loggedIn)
+
     },
   },
 })

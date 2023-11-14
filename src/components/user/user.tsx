@@ -5,7 +5,7 @@ type UserProps = {
 }
 function User(userdata: UserProps) {
   console.log('userName1', userdata.user.first_name)
-  return (<div>
+  return (<div className="user">
     <div className="id"></div>
     <div className="user-name">
       <div className="user-name__first">{userdata.user.first_name}</div>

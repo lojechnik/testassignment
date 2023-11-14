@@ -47,6 +47,7 @@ console.log('result',resultingArray)
     const filteredArray = userArray.filter((user) => user.first_name === name);
     return filteredArray
   }
+
   console.log('resulting array', resultingArray, 'users', users)
   return (<>
     <div>Фильтрация</div>

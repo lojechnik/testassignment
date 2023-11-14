@@ -29,7 +29,7 @@ export default function useFetch() {
     const dispatch = useDispatch()
     const token = useSelector((state: RootState) => state.auth.token)
 
-    const send = (url: string, method: string, body?: IBody) => {
+    const send = async (url: string, method: string, body?: IBody) => {
 
         const base = 'https://test-assignment.emphasoft.com/api/v1/'
         const normalizedURL = `${base}${url}`
@@ -49,19 +49,18 @@ export default function useFetch() {
         if (method !== 'GET') {
             requestOptions.body = JSON.stringify(body)
         }
-        return fetch(normalizedURL, requestOptions)
-            .then(res => {
-                if (res.status === 401) {
-                    dispatch(logout())
-                    throw new Error(String(res.status))
-                }
-                return res.json()
-            })
-            .then(data => {
-                console.log('data', data)
-                return data
-            })
-            .catch(err => console.log(err))
+        try {
+            const res = await fetch(normalizedURL, requestOptions);
+            if (res.status === 401) {
+                dispatch(logout());
+                throw new Error(String(res.status));
+            }
+            const data = await res.json();
+            console.log('data', data);
+            return data;
+        } catch (err) {
+            return console.log(err);
+        }
     }
 
     return send
