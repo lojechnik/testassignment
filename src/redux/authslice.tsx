@@ -27,9 +27,12 @@ export const authSlice = createSlice({
       console.log('state.loggedon',state.loggedIn)
 
     },
+    forceLogin: (state) => {
+      state.loggedIn = true;
+    }
   },
 })
 
-export const { login, logout } = authSlice.actions
+export const { login, logout, forceLogin } = authSlice.actions
 
 export default authSlice.reducer

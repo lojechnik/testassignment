@@ -1,6 +1,5 @@
 import { Navigate } from "react-router"
-import { useSelector } from "react-redux/es/hooks/useSelector"
-import { RootState } from "../../redux/store"
+
 export function ConditionalRoute(
     Component: React.FunctionComponent,
     condition: boolean,

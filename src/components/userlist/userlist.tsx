@@ -2,7 +2,9 @@ import React from 'react'
 import { userType } from '../user/usertype';
 import User from '../user/user'
 import { useRef } from 'react';
+import styles from './userlist.module.css'
 import { useState } from 'react';
+import UserListButton from '../ui/userlistbutton';
 import { useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
 type UserListProps = {
@@ -49,15 +51,15 @@ console.log('result',resultingArray)
   }
 
   console.log('resulting array', resultingArray, 'users', users)
-  return (<>
+  return (<div className = {styles.userlist}>
     <div>Фильтрация</div>
-    <button onClick={filter}>Filter</button>
+    <div onClick={filter} className = {styles.userlist__filterbtn}>Filter</div>
     <div>Фильтрация по имени</div>
-    <button onClick={() => { setResultingArray(users) }}>Сбросить</button>
+    <UserListButton onClick={() => { setResultingArray(users) }}>Сбросить</UserListButton>
     <div>Сбросить</div>
     <div>Сортировка по ID</div>
-    <button onClick={sortAsc}>По возрастанию</button>
-    <button onClick={sortDesc}>По убыванию</button>
+    <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
+    <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
     <input type="text" ref={filterRef} />
     {
       resultingArray?.map(user => {
@@ -66,7 +68,7 @@ console.log('result',resultingArray)
         )
       })
     }
-  </>);
+  </div>);
 }
 
 export default UserList;
