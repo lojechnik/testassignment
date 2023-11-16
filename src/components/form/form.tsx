@@ -1,20 +1,20 @@
 import { useForm } from "react-hook-form";
+import UserListButton from "../ui/userlistbutton";
 import { userType } from "../user/usertype";
+import useFetch from "../../hooks/useFetch";
+type FormActionT =  {
+  formaction:string;
+}
 export default function Form() {
+  const send = useFetch()
     const { register, handleSubmit, formState: { errors } } = useForm();
-    // const onSubmit = async () => {
-    //     await {fetch};
-    //     if (username === "bill") {
-    //       alert(JSON.stringify(data));
-    //     } else {
-    //       alert("There is an error");
-    //     }
-    //   };
+    const onSubmit = async () => {
     
+      };
     return (
         <div>
             <form
-            //  onSubmit={handleSubmit(onSubmit)}
+             onSubmit={handleSubmit(onSubmit)}
              >
       <h1>Async Submit Validation</h1>
       <label htmlFor="username">User Name</label>
@@ -35,6 +35,7 @@ export default function Form() {
           "There are errors, check your console."}
       </div>
       <input type="submit" />
+     
     </form>
         </div>
     )

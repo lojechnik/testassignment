@@ -2,17 +2,26 @@ import React from 'react'
 import { userType } from '../user/usertype';
 import User from '../user/user'
 import { useRef } from 'react';
+import { Routes } from 'react-router';
+import { Outlet } from 'react-router';
+import Form from '../form/form';
+import { Route } from 'react-router';
+import { useLocation } from 'react-router-dom'
 import styles from './userlist.module.css'
+import { useParams } from 'react-router';
 import { useState } from 'react';
 import UserListButton from '../ui/userlistbutton';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import useFetch from '../../hooks/useFetch';
+import { useProtectedRoute } from '../../hooks/useProtectedRoute';
 type UserListProps = {
   userArray: userType[];
 }
 function UserList() {
+  const navigate = useNavigate()
   const [users, setUsers] = useState<userType[]>([])
-
+const {userId} = useParams()
   const send = useFetch()
   const getUsers = async () => {
     const response = await send(
@@ -34,37 +43,51 @@ function UserList() {
       users.slice().sort((a, b) => {
         return a.id - b.id
       }));
-      console.log('results123',resultingArray)
+    console.log('results123', resultingArray)
 
+  }
+
+  const openForm = (id: number) => {
+    navigate(`${location.pathname}/${String(id)}`)
   }
   const sortDesc = () => {
 
     setResultingArray(users.slice().sort((a, b) => {
       return b.id - a.id
     }));
-console.log('result',resultingArray)
+    console.log('result', resultingArray)
   }
   const filterRef = useRef<HTMLInputElement>(null)
   const filterArray = (userArray: userType[], name?: string) => {
     const filteredArray = userArray.filter((user) => user.first_name === name);
     return filteredArray
   }
-
+  const location = useLocation()
+  console.log('location path', location.pathname)
   console.log('resulting array', resultingArray, 'users', users)
-  return (<div className = {styles.userlist}>
+  return (<div className={styles.userlist}>
     <div>Фильтрация</div>
-    <div onClick={filter} className = {styles.userlist__filterbtn}>Filter</div>
+    <div onClick={filter} className={styles.userlist__filterbtn}>Filter</div>
     <div>Фильтрация по имени</div>
     <UserListButton onClick={() => { setResultingArray(users) }}>Сбросить</UserListButton>
     <div>Сбросить</div>
     <div>Сортировка по ID</div>
-    <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
-    <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
+
     <input type="text" ref={filterRef} />
     {
       resultingArray?.map(user => {
-        return (
-          <User user={user} />
+        return (<>
+   
+
+    
+            <User user={user} />
+            <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
+            <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
+            <UserListButton onClick={() => { openForm(user.id) }}>Изменить</UserListButton>
+
+         <Outlet/>
+
+        </>
         )
       })
     }
