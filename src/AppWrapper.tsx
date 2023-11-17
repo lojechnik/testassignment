@@ -5,14 +5,15 @@ import Form from './components/form/form';
 import Home from './pages/home'
 import { useProtectedRoute } from './hooks/useProtectedRoute';
 export default function AppWrapper() {
-    const HomeProtectedRoute = useProtectedRoute(Home)
-    const FormProtected = useProtectedRoute(Form)
+  const HomeProtectedRoute = useProtectedRoute(Home)
+  const FormProtected = useProtectedRoute(Form)
   return (
     <Routes>
-    <Route path="/auth" element={<Auth />}></Route>
-    <Route path="/home" element={<HomeProtectedRoute /> }>
-    <Route path={":userId"}element = {<Form />}> </Route>
-    </Route>
+      <Route path="/auth" element={<Auth />}></Route>
+      <Route path="/home" element={<HomeProtectedRoute />}>
+       
+      </Route>
+      <Route path={"/form/:userId"} element={<Form />}> </Route>
 
 
     </Routes>

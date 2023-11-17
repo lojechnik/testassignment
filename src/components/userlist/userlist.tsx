@@ -21,7 +21,7 @@ type UserListProps = {
 function UserList() {
   const navigate = useNavigate()
   const [users, setUsers] = useState<userType[]>([])
-const {userId} = useParams()
+  const { userId } = useParams()
   const send = useFetch()
   const getUsers = async () => {
     const response = await send(
@@ -48,7 +48,7 @@ const {userId} = useParams()
   }
 
   const openForm = (id: number) => {
-    navigate(`${location.pathname}/${String(id)}`)
+    navigate(`/form/${String(id)}`)
   }
   const sortDesc = () => {
 
@@ -77,16 +77,11 @@ const {userId} = useParams()
     {
       resultingArray?.map(user => {
         return (<>
-   
-
-    
-            <User user={user} />
-            <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
-            <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
-            <UserListButton onClick={() => { openForm(user.id) }}>Изменить</UserListButton>
-
-         <Outlet/>
-
+          <User user={user} />
+          <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
+          <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
+          <UserListButton onClick={() => { openForm(user.id) }}>Изменить</UserListButton>
+       
         </>
         )
       })
