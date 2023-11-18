@@ -13,7 +13,7 @@ export default function AppWrapper() {
       <Route path="/home" element={<HomeProtectedRoute />}>
        
       </Route>
-      <Route path={"/form/:userId"} element={<Form />}> </Route>
+      <Route path={"/form/:userId"} element={<FormProtected />}> </Route>
 
 
     </Routes>

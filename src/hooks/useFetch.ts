@@ -31,7 +31,7 @@ export default function useFetch() {
 
     const send = async (url: string, method: string, body?: IBody) => {
 
-        const base = 'https://test-assignment.emphasoft.com/api/v1/'
+        const base = process.env.REACT_APP_TEST_ASSIGNMENT_API 
         const normalizedURL = `${base}${url}`
 
         const requestOptions: IRequestOptions = {

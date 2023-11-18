@@ -9,7 +9,9 @@ import { Route } from 'react-router';
 import { useLocation } from 'react-router-dom'
 import styles from './userlist.module.css'
 import { useParams } from 'react-router';
+import { openForm } from '../../redux/formslice';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import UserListButton from '../ui/userlistbutton';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
@@ -19,6 +21,7 @@ type UserListProps = {
   userArray: userType[];
 }
 function UserList() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [users, setUsers] = useState<userType[]>([])
   const { userId } = useParams()
@@ -34,6 +37,7 @@ function UserList() {
   }
   useEffect(() => {
     getUsers()
+    console.log('process.envREACT_APP_TEST_ASSIGNMENT_API',process.env.REACT_APP_TEST_ASSIGNMENT_API  )
   }, [])
 
   const [resultingArray, setResultingArray] = useState<userType[]>(users)
@@ -47,8 +51,9 @@ function UserList() {
 
   }
 
-  const openForm = (id: number) => {
-    navigate(`/form/${String(id)}`)
+  const redirectForm = (user:userType) => {
+    dispatch(openForm)
+    navigate(`/form/${String(user.id)}`)
   }
   const sortDesc = () => {
 
@@ -62,9 +67,7 @@ function UserList() {
     const filteredArray = userArray.filter((user) => user.first_name === name);
     return filteredArray
   }
-  const location = useLocation()
-  console.log('location path', location.pathname)
-  console.log('resulting array', resultingArray, 'users', users)
+
   return (<div className={styles.userlist}>
     <div>Фильтрация</div>
     <div onClick={filter} className={styles.userlist__filterbtn}>Filter</div>
@@ -80,7 +83,7 @@ function UserList() {
           <User user={user} />
           <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
           <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
-          <UserListButton onClick={() => { openForm(user.id) }}>Изменить</UserListButton>
+          <UserListButton onClick={() => { redirectForm(user) }}>Изменить</UserListButton>
        
         </>
         )

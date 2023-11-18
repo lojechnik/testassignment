@@ -1,34 +1,51 @@
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 import UserListButton from "../ui/userlistbutton";
 import { userType } from "../user/usertype";
 import useFetch from "../../hooks/useFetch";
-type FormActionT =  {
-  formaction:string;
+import { FieldValues } from "react-hook-form";
+import { RootState } from "../../redux/store";
+import { useState,useEffect } from "react";
+import { formType } from "../../redux/formslice";
+type FormTypes = {
+  first_name:string;
+  last_name:string;
+}
+interface SubmitFormType  {
+  userData:userType;
+  formAction:string;
+  props:formType;
 }
 export default function Form() {
+  const [apiBody,setApiBody] = useState<FieldValues>()
   const send = useFetch()
+  const formData = useSelector((state: RootState) => state.form)
+useEffect(()=>{
+console.log('apiBody',apiBody)
+},[apiBody])
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = async () => {
-    
-      };
+    const onSubmit = (data:FieldValues) => {
+     setApiBody(data)
+     
+    };
+    const action = async (props:FormTypes) => {
+  }
     return (
         <div>
+          
+          
+          
             <form
              onSubmit={handleSubmit(onSubmit)}
              >
       <h1>Async Submit Validation</h1>
-      <label htmlFor="username">User Name</label>
-      <input {...register("username")} placeholder="Bill" />
-
+   
+      <label htmlFor="firstName">Last Name</label>
+      <input {...register("first_name")}  placeholder={(formData.formType === 'edit') ? formData.currentUser.first_name : ''} />
       <label htmlFor="lastName">Last Name</label>
-      <input {...register("first_name")} placeholder="Luo" />
+      <input {...register("last_name")} placeholder={(formData.formType === 'edit') ? formData.currentUser.last_name : ''} />
 
-      <label htmlFor="email">Email</label>
-      <input
-        {...register("email")}
-        placeholder="bluebill1049@hotmail.com"
-        type="text"
-      />
+      
 
       <div style={{ color: "red" }}>
         {Object.keys(errors).length > 0 &&
