@@ -20,16 +20,20 @@ export default function Form() {
   const [apiBody,setApiBody] = useState<FieldValues>()
   const send = useFetch()
   const formData = useSelector((state: RootState) => state.form)
+  console.log('currentUser',formData.currentUser)
 useEffect(()=>{
 console.log('apiBody',apiBody)
-},[apiBody])
+send(`/users/${formData?.currentUser?.id}`,'PATCH',{
+  id:formData?.currentUser?.id
+},
+)
+},[formData?.currentUser?.id,apiBody,send])
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data:FieldValues) => {
+      console.log('dataonSubm,it',data)
      setApiBody(data)
-     
+     console.log('formdata',data)
     };
-    const action = async (props:FormTypes) => {
-  }
     return (
         <div>
           

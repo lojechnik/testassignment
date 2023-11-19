@@ -14,10 +14,12 @@ export const formSlice = createSlice({
     formType: '',
   } as formType,
   reducers: {
-   openForm: (state,action) => {
-state.currentUser = action.payload.user
+   openForm: (state,{ payload }) => {
+state.currentUser = payload.currentUser
+console.log('payload',payload)
+console.log('action.payload.user',payload.currentUser)
 state.formOpen = true;
-state.formType = action.payload.formType
+state.formType = payload.formType
 
    },
    closeForm: (state,action) => {

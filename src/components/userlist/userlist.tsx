@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { Routes } from 'react-router';
 import { Outlet } from 'react-router';
 import Form from '../form/form';
+import { formType } from '../../redux/formslice';
 import { Route } from 'react-router';
 import { useLocation } from 'react-router-dom'
 import styles from './userlist.module.css'
@@ -51,9 +52,10 @@ function UserList() {
 
   }
 
-  const redirectForm = (user:userType) => {
-    dispatch(openForm)
-    navigate(`/form/${String(user.id)}`)
+  const redirectForm = (payload:formType) => {
+    dispatch(openForm(payload))
+    console.log('formuser',payload.currentUser)
+    navigate(`/form/${String(payload.currentUser.id)}`)
   }
   const sortDesc = () => {
 
@@ -83,7 +85,7 @@ function UserList() {
           <User user={user} />
           <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
           <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
-          <UserListButton onClick={() => { redirectForm(user) }}>Изменить</UserListButton>
+          <UserListButton onClick={() => { redirectForm({currentUser:user,formType:'edit',formOpen:true}) }}>Изменить</UserListButton>
        
         </>
         )
