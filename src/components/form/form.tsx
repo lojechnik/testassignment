@@ -35,25 +35,34 @@ send(`/users/${formData?.currentUser?.id}`,'PATCH',{
      console.log('formdata',data)
     };
     return (
-        <div>
-          
-          
+        <div>      
           
             <form
              onSubmit={handleSubmit(onSubmit)}
-             >
-      <h1>Async Submit Validation</h1>
-   
-      <label htmlFor="firstName">Last Name</label>
-      <input {...register("first_name")}  placeholder={(formData.formType === 'edit') ? formData.currentUser.first_name : ''} />
-      <label htmlFor="lastName">Last Name</label>
-      <input {...register("last_name")} placeholder={(formData.formType === 'edit') ? formData.currentUser.last_name : ''} />
+        >
+          <h1>Async Submit Validation</h1>
 
-      
-
+          <label htmlFor="firstName">Last Name</label>
+          <input {...register("first_name", {
+            required: "Please Enter Your First Name!",
+            pattern: {
+              value: /^[a-z ,.'-]+$/i,
+              message: "Please Enter A Valid Name!"
+            }
+          })} type="first_name" id="first_name" placeholder={(formData.formType === 'edit') ? formData.currentUser.last_name : ''} 
+          />
+          <label htmlFor="lastName">Last Name</label>
+          <input {...register("last_name", {
+            required: "Please Enter Your Name!",
+            pattern: {
+              value: /^[a-z ,.'-]+$/i,
+              message: "Please Enter A Valid Name!"
+            }
+          })} type="last_name" id="last_name" placeholder={(formData.formType === 'edit') ? formData.currentUser.last_name : ''} 
+          />
       <div style={{ color: "red" }}>
         {Object.keys(errors).length > 0 &&
-          "There are errors, check your console."}
+          "Invalid name."}
       </div>
       <input type="submit" />
      
