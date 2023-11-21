@@ -1,6 +1,27 @@
 .userlist{
     display:flex;
     flex-direction: column;
-    gap:20px;
-    align-items:center;
+    gap:15px;
+    padding:50px;
+}
+.userlist__item{
+    display:flex;
+    flex-direction: row;
+    margin:10px;
+
+}
+
+.userlist__array {
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+    padding:15px;
+}
+.userlist__operations{
+    display:flex;
+    flex-direction: row;
+    max-height:400px;
+    padding:10px;
+    gap:15px;
+
 }

@@ -7,6 +7,7 @@ import { Outlet } from 'react-router';
 import Form from '../form/form';
 import { formType } from '../../redux/formslice';
 import { Route } from 'react-router';
+import { logout } from '../../redux/authslice';
 import { useLocation } from 'react-router-dom'
 import styles from './userlist.module.css'
 import { useParams } from 'react-router';
@@ -70,27 +71,30 @@ function UserList() {
     return filteredArray
   }
 
-  return (<div className={styles.userlist}>
-    <div>Фильтрация</div>
-    <div onClick={filter} className={styles.userlist__filterbtn}>Filter</div>
-    <div>Фильтрация по имени</div>
+  return (
+  <div className={styles.userlist}>
+    <div className="logoutBtn"onClick={()=>{dispatch(logout())}}>Выйти</div>
+    <div className={styles.userlist__operations}>
     <UserListButton onClick={() => { setResultingArray(users) }}>Сбросить</UserListButton>
-    <div>Сбросить</div>
     <div>Сортировка по ID</div>
+    <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
+          <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
+          <div onClick={filter} className={styles.userlist__filterbtn}>Фильтрация</div>
 
     <input type="text" ref={filterRef} />
+    </div>
+    <div className={styles.userlist__array}>
     {
+      
       resultingArray?.map(user => {
-        return (<>
+        return (<div className = {styles.userlist__item}>
           <User user={user} />
-          <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
-          <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
           <UserListButton onClick={() => { redirectForm({currentUser:user,formType:'edit',formOpen:true}) }}>Изменить</UserListButton>
-       
-        </>
+
+        </div>
         )
       })
-    }
+   } </div>
   </div>);
 }
 
