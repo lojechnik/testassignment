@@ -10,8 +10,7 @@ export default function AppWrapper() {
   const FormProtected = useProtectedRoute(Form)
   return (
     <Routes>
-            <Route path="/" element={<Navigate to="/auth" />} />
-
+      <Route path="/" element={<Navigate to="/auth" />} />
       <Route path="/auth" element={<Auth />}></Route>
       <Route path="/home" element={<HomeProtectedRoute />}>
       </Route>

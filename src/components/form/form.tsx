@@ -36,12 +36,9 @@ send(`/users/${formData?.currentUser?.id}`,'PATCH',{
     };
     return (
         <div>      
-          
             <form
              onSubmit={handleSubmit(onSubmit)}
         >
-          <h1>Async Submit Validation</h1>
-
           <label htmlFor="firstName">Last Name</label>
           <input {...register("first_name", {
             required: "Please Enter Your First Name!",

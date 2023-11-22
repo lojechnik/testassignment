@@ -73,15 +73,22 @@ function UserList() {
 
   return (
   <div className={styles.userlist}>
-    <div className="logoutBtn"onClick={()=>{dispatch(logout())}}>Выйти</div>
+    <div className={styles.logoutBtn} onClick={()=>{dispatch(logout())}}>Выйти</div>
     <div className={styles.userlist__operations}>
+     
     <UserListButton onClick={() => { setResultingArray(users) }}>Сбросить</UserListButton>
+    <div className={styles.soring}>
     <div>Сортировка по ID</div>
+    <div className={styles.sorting__types}>
     <UserListButton onClick={sortAsc}>По возрастанию</UserListButton>
           <UserListButton onClick={sortDesc}>По убыванию</UserListButton>
-          <div onClick={filter} className={styles.userlist__filterbtn}>Фильтрация</div>
+          </div>
+          </div>
+          <div className={styles.userlist__filterbtn}>Фильтрация</div>
 
-    <input type="text" ref={filterRef} />
+    <input type="text"className={styles.filterInput} ref={filterRef} />
+    <UserListButton onClick={filter}>Применить фильтрацию</UserListButton>
+
     </div>
     <div className={styles.userlist__array}>
     {
