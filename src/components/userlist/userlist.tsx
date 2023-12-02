@@ -73,7 +73,6 @@ function UserList() {
 
   return (
   <div className={styles.userlist}>
-    <div className={styles.logoutBtn} onClick={()=>{dispatch(logout())}}>Выйти</div>
     <div className={styles.userlist__operations}>
      
     <UserListButton onClick={() => { setResultingArray(users) }}>Сбросить</UserListButton>
